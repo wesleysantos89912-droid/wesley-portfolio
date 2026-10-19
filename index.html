@@ -40,6 +40,7 @@ nav a.link::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height
 nav a.link:hover,nav a.link.act{color:var(--hl)}
 nav a.link:hover::after,nav a.link.act::after{transform:scaleX(1)}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;font-weight:700;text-decoration:none;border:1px solid var(--text);background:transparent;color:var(--text);font-family:inherit;font-size:.95rem}
+.btn{transition:scale .35s cubic-bezier(.22,.61,.36,1),filter .2s,box-shadow .2s,border-color .2s,color .2s}
 nav .btn{padding:9px 18px;font-size:.88rem}
 .btn.primary{background:var(--y);border-color:var(--y);color:var(--ink);box-shadow:0 0 28px rgba(250,204,21,.4)}
 .btn:not(.primary):not(.brand):hover{border-color:var(--y);color:var(--hl)}
@@ -176,12 +177,14 @@ body.lb-on{overflow:hidden}
 .b-wa{box-shadow:0 10px 32px rgba(37,211,102,.4)}
 .b-ig{box-shadow:0 10px 32px rgba(220,39,67,.4)}
 .b-mail{box-shadow:0 10px 32px rgba(217,48,37,.4)}
-.cta .btn{transition:transform .18s ease-out,filter .2s,box-shadow .2s,border-color .2s,color .2s;will-change:transform}
+.cta .btn{transition:transform .18s ease-out,scale .35s cubic-bezier(.22,.61,.36,1),filter .2s,box-shadow .2s,border-color .2s,color .2s;will-change:transform}
+.arr{transition:scale .35s cubic-bezier(.22,.61,.36,1),border-color .2s}
+@media (hover:hover){.btn:hover,.arr:hover{scale:1.06}}
 
 @media (max-width:820px){.two,.steps3{grid-template-columns:1fr}nav a.link{display:none}}
 @media (max-width:560px){.vf{inset:18px 14px 22px}.vf .tl1,.vf .bl1{left:40px}.vf .tr1,.vf .br1{right:40px}.vf .bl1{display:none}.logo{font-size:.86rem;gap:7px}.logo svg{width:24px;height:24px}nav .btn{padding:8px 13px;font-size:.84rem;white-space:nowrap}}
 @media (max-width:380px){nav .btn .dot{display:none}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.dot,.track,.hero::before,.grd{animation:none}.play,.sl,.sl.has-v .play{transition:none}.lb.open,.lb video,.lb iframe{animation:none}.track{flex-wrap:wrap;width:auto}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.dot,.track,.hero::before,.grd{animation:none}.play,.sl,.sl.has-v .play{transition:none}.lb.open,.lb video,.lb iframe{animation:none}.track{flex-wrap:wrap;width:auto}.btn:hover,.arr:hover{scale:none}}
 </style>
 </head>
 <body>
