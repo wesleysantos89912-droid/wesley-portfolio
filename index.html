@@ -125,6 +125,8 @@ h2{font-size:clamp(1.8rem,4.4vw,3rem);line-height:1.1;margin:0 0 28px;font-weigh
 .flow.h{--w:min(540px,76vw);--ar:16/9;height:calc(var(--w)*.5625 + 64px)}
 .sl{position:absolute;top:32px;left:50%;width:var(--w);margin-left:calc(var(--w)/-2);aspect-ratio:var(--ar);border-radius:18px;overflow:hidden;background:linear-gradient(160deg,var(--frame2),var(--frame));color:#fff;text-decoration:none;border:1px solid transparent;filter:blur(2px) saturate(.5);transition:transform .75s cubic-bezier(.22,.61,.36,1),opacity .55s ease,filter .55s ease,box-shadow .55s ease,border-color .55s ease;will-change:transform,opacity;backface-visibility:hidden}
 .sl.on{filter:none;border-color:var(--y);box-shadow:0 0 40px rgba(250,204,21,.45)}
+.flow.drag .sl{transition:none}
+.flow.drag{cursor:grabbing}
 @media (hover:hover){.sl{transition-property:transform,opacity,filter,box-shadow,border-color,scale}.sl.on:is(.has-v,.has-yt):hover{scale:1.04;box-shadow:0 18px 60px rgba(250,204,21,.5)}}
 .play{position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;background:var(--y);display:grid;place-items:center;transition:transform .2s}
 .play::after{content:"";margin-left:5px;border-left:18px solid var(--ink);border-top:11px solid transparent;border-bottom:11px solid transparent}
@@ -467,6 +469,18 @@ function makeSlider(fid, did, items) {
     vids.forEach(function (v) { if (v) { v.pause(); v.currentTime = 0; } });
     layout();
   }
+  function pose(a, d) {
+    return "translateX(" + d * a.offsetWidth * 0.72 + "px) rotateY(" + (-d * 28) + "deg) scale(" + (1 - Math.abs(d) * 0.16) + ")";
+  }
+  /* durante o arraste, os cards acompanham o dedo (off = quantos cards já foram arrastados) */
+  function place(off) {
+    els.forEach(function (a) {
+      var d = a._d + off, ad = Math.abs(d);
+      a.style.transform = pose(a, d);
+      a.style.zIndex = 10 - Math.round(ad);
+      a.style.opacity = ad > 2 ? Math.max(0, 3 - ad) : 1;
+    });
+  }
   function layout() {
     els.forEach(function (a, i) {
       var d = i - cur;
@@ -474,7 +488,7 @@ function makeSlider(fid, did, items) {
       if (d < -n / 2) d += n;
       if (a._d !== undefined) { var e = a._d - shift; if (Math.abs(e) <= n / 2 && ((e - d) % n + n) % n === 0) d = e; }
       var ad = Math.abs(d);
-      var tf = "translateX(" + d * a.offsetWidth * 0.72 + "px) rotateY(" + (-d * 28) + "deg) scale(" + (1 - ad * 0.16) + ")";
+      var tf = pose(a, d);
       /* card que dá a volta no carrossel: em vez de atravessar a tela, reaparece suavemente no novo lugar */
       if (a._d !== undefined && d !== a._d - shift) {
         a.style.transition = "none"; a.style.opacity = 0; a.style.transform = tf;
@@ -504,12 +518,34 @@ function makeSlider(fid, did, items) {
     if (e.key === "ArrowRight") go(cur + 1);
     if (e.key === "ArrowLeft") go(cur - 1);
   });
-  flow.addEventListener("pointerdown", function (e) { sx = e.clientX; moved = false; });
-  flow.addEventListener("pointerup", function (e) {
-    if (sx === null) return;
-    var dx = e.clientX - sx; sx = null;
-    if (Math.abs(dx) > 40) { moved = true; go(cur + (dx < 0 ? 1 : -1)); }
+  var dragging = false, step = 1;
+  flow.addEventListener("pointerdown", function (e) {
+    if (n < 2 || e.target.closest(".arr") || (e.pointerType === "mouse" && e.button !== 0)) return;
+    sx = e.clientX; moved = false; dragging = false;
+    step = els[cur].offsetWidth * 0.72;
   });
+  flow.addEventListener("pointermove", function (e) {
+    if (sx === null) return;
+    var dx = e.clientX - sx;
+    if (!dragging && Math.abs(dx) > 6) {
+      dragging = true; moved = true;
+      flow.classList.add("drag");
+      try { flow.setPointerCapture(e.pointerId); } catch (err) {}
+    }
+    if (dragging) place(Math.max(-1.2, Math.min(1.2, dx / step)));
+  });
+  function release(e, cancel) {
+    if (sx === null) return;
+    var dx = (e.clientX || sx) - sx; sx = null;
+    flow.classList.remove("drag");
+    if (!dragging) return;
+    dragging = false;
+    var k = cancel ? 0 : Math.max(-1, Math.min(1, Math.round(-dx / step)));
+    if (!k && !cancel && Math.abs(dx) > 40) k = dx < 0 ? 1 : -1;
+    if (k) go(cur + k); else layout();
+  }
+  flow.addEventListener("pointerup", function (e) { release(e, false); });
+  flow.addEventListener("pointercancel", function (e) { release(e, true); });
   window.addEventListener("resize", layout);
   layout();
 }
