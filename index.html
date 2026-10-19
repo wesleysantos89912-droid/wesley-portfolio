@@ -88,6 +88,12 @@ section{padding:44px 0}
 section.wrap{padding-top:44px;padding-bottom:44px}
 .ticker{margin-top:8px;margin-bottom:52px}
 main{overflow-x:clip}
+.brands{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:18px 40px;padding-top:4px;padding-bottom:20px}
+.brands-t{margin:0;font:400 .74rem var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.logos{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 44px;margin:0;padding:0;list-style:none}
+.logos li{display:flex;align-items:center;gap:12px;font-weight:900;font-size:1.35rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text);opacity:.75;transition:opacity .3s,color .3s}
+.logos li:hover{opacity:1;color:var(--hl)}
+.logos .lg{width:40px;height:44px;background:currentColor;-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat}
 .eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 14px;font:400 .74rem var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 .eyebrow .sc{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:6px;background:var(--y);color:var(--ink);font-weight:700;letter-spacing:.12em;white-space:nowrap}
 .eyebrow .sc::before{content:"";width:10px;height:8px;background:repeating-linear-gradient(115deg,var(--ink) 0 2px,transparent 2px 4px)}
@@ -96,6 +102,7 @@ h2{font-size:clamp(1.8rem,4.4vw,3rem);line-height:1.1;margin:0 0 28px;font-weigh
 .flow.h{--w:min(540px,76vw);--ar:16/9;height:calc(var(--w)*.5625 + 64px)}
 .sl{position:absolute;top:32px;left:50%;width:var(--w);margin-left:calc(var(--w)/-2);aspect-ratio:var(--ar);border-radius:18px;overflow:hidden;background:linear-gradient(160deg,var(--frame2),var(--frame));color:#fff;text-decoration:none;border:1px solid transparent;filter:blur(2px) saturate(.5);transition:transform .75s cubic-bezier(.22,.61,.36,1),opacity .55s ease,filter .55s ease,box-shadow .55s ease,border-color .55s ease;will-change:transform,opacity;backface-visibility:hidden}
 .sl.on{filter:none;border-color:var(--y);box-shadow:0 0 40px rgba(250,204,21,.45)}
+@media (hover:hover){.sl{transition-property:transform,opacity,filter,box-shadow,border-color,scale}.sl.on:is(.has-v,.has-yt):hover{scale:1.04;box-shadow:0 18px 60px rgba(250,204,21,.5)}}
 .play{position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;background:var(--y);display:grid;place-items:center;transition:transform .2s}
 .play::after{content:"";margin-left:5px;border-left:18px solid var(--ink);border-top:11px solid transparent;border-bottom:11px solid transparent}
 .sl.on:hover .play{transform:scale(1.08)}
@@ -212,6 +219,13 @@ body.lb-on{overflow:hidden}
     <span><b>Filmagem</b><i></i><em>edição</em><i></i><b>Corte e ritmo</b><i></i><em>legenda</em><i></i><b>Trilha</b><i></i><em>pronto para postar</em><i></i></span>
     <span><b>Filmagem</b><i></i><em>edição</em><i></i><b>Corte e ritmo</b><i></i><em>legenda</em><i></i><b>Trilha</b><i></i><em>pronto para postar</em><i></i></span>
   </div></div>
+
+  <section id="marcas" class="wrap brands" aria-label="Marcas com quem já trabalhei">
+    <p class="brands-t">Marcas com quem já trabalhei</p>
+    <ul class="logos">
+      <li><span class="lg" style="--logo:url(marcas/pichau.png)" role="img" aria-label="Logo da Pichau"></span>Pichau</li>
+    </ul>
+  </section>
 
   <section id="trabalhos" class="wrap">
     <p class="eyebrow"><span class="sc">Cena 01</span>Reels e vídeos verticais</p>
