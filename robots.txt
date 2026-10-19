@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wesley-portfolio-kappa.vercel.app/sitemap.xml
