@@ -11,6 +11,7 @@ Site de uma página, no ar em **https://www.wesleycostafilms.com.br**.
 - `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`: ícone do site
 - `og-image.jpg`: imagem que aparece ao compartilhar o link (1200x630)
 - `robots.txt` e `sitemap.xml`: arquivos para o Google
+- `googleae32f6aaeaa3e272.html`: verificação do Google Search Console. **Não apague**, senão o site perde a verificação.
 
 ## Como atualizar
 
@@ -27,5 +28,7 @@ Ao enviar para o GitHub (branch `main`), a Vercel publica sozinha em cerca de 1 
 - Domínio: `wesleycostafilms.com.br` no Registro.br, com vencimento em 19/10/2027
 - DNS (Registro.br, modo avançado): `A @ 216.198.79.1` e `CNAME www → a2c681e3bce0aefa.vercel-dns-017.com.`
 - Endereço sem www redireciona para `www.wesleycostafilms.com.br`
+- Visitas: Vercel → projeto → Analytics (Web Analytics gratuito, sem cookies)
+- Google: Search Console com a propriedade `https://www.wesleycostafilms.com.br/` e o sitemap enviado
 
 Para testar no computador: `python -m http.server 5500` nesta pasta e abra http://localhost:5500.
