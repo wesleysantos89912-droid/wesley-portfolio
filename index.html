@@ -9,9 +9,9 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#0A0A0A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#FFFFFF;--line:#D6D3D1;--text:#0A0A0A;--muted:#57534E;--y:#FACC15;--ink:#0A0A0A;--hl:#8A6D00;--glow:none;--grid:rgba(0,0,0,.06);--frame:#1C1C1C;--frame2:#3C3C3C;--focus:#0A0A0A;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace}
+:root{--bg:#FFFFFF;--line:#D6D3D1;--text:#0A0A0A;--muted:#57534E;--y:#FACC15;--ink:#0A0A0A;--hl:#8A6D00;--glow:none;--grid:rgba(0,0,0,.06);--frame:#1C1C1C;--frame2:#3C3C3C;--focus:#0A0A0A;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace;--serif:"Instrument Serif",Georgia,"Times New Roman",serif}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A0A0A;--line:#262626;--text:#F4F3EE;--muted:#A8A39A;--hl:#FACC15;--glow:0 0 30px rgba(250,204,21,.5);--grid:rgba(255,255,255,.05);--frame:#0E0E0E;--frame2:#2A2A2A;--focus:#FACC15}}
 :root[data-theme="dark"]{--bg:#0A0A0A;--line:#262626;--text:#F4F3EE;--muted:#A8A39A;--hl:#FACC15;--glow:0 0 30px rgba(250,204,21,.5);--grid:rgba(255,255,255,.05);--frame:#0E0E0E;--frame2:#2A2A2A;--focus:#FACC15}
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -28,14 +28,17 @@ strong{font-weight:700;color:var(--text)}
 .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
-.logo{font-weight:900;text-decoration:none;font-size:1.05rem;text-transform:uppercase}
-.logo small{font:700 .7rem var(--mono);color:var(--hl);text-transform:none;margin-left:4px}
+.logo{display:inline-flex;align-items:center;gap:10px;font-weight:900;text-decoration:none;font-size:1.05rem;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap}
+.logo svg{width:30px;height:30px;flex:none}
+.logo small{font:italic 400 1.2rem var(--serif);color:var(--hl);text-transform:none;letter-spacing:0;margin-left:-4px}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--y);animation:blink 1.2s steps(2,jump-none) infinite}
 @keyframes blink{50%{opacity:.15}}
 .dot.s{animation:none}
 nav{display:flex;align-items:center;gap:22px}
-nav a.link{text-decoration:none;font-weight:600;font-size:.92rem}
+nav a.link{position:relative;padding:4px 0;text-decoration:none;font-weight:600;font-size:.92rem}
+nav a.link::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;border-radius:2px;background:var(--y);transform:scaleX(0);transition:transform .3s cubic-bezier(.22,.61,.36,1)}
 nav a.link:hover,nav a.link.act{color:var(--hl)}
+nav a.link:hover::after,nav a.link.act::after{transform:scaleX(1)}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;font-weight:700;text-decoration:none;border:1px solid var(--text);background:transparent;color:var(--text);font-family:inherit;font-size:.95rem}
 nav .btn{padding:9px 18px;font-size:.88rem}
 .btn.primary{background:var(--y);border-color:var(--y);color:var(--ink);box-shadow:0 0 28px rgba(250,204,21,.4)}
@@ -47,29 +50,47 @@ nav .btn{padding:9px 18px;font-size:.88rem}
 .b-ig{background:linear-gradient(135deg,#E6683C,#DC2743 45%,#CC2366 70%,#BC1888)}
 .b-mail{background:#D93025}
 .hero{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;min-height:max(560px,calc(100svh - 64px));padding:48px 0}
-.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:64px 64px;animation:grid 6s linear infinite;-webkit-mask-image:radial-gradient(75% 75% at 50% 45%,#000 25%,transparent 100%);mask-image:radial-gradient(75% 75% at 50% 45%,#000 25%,transparent 100%)}
-.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(40% 45% at 100% 55%,rgba(250,204,21,.2),transparent 70%);pointer-events:none}
-@keyframes grid{to{background-position:64px 64px,64px 64px}}
+.hero::before{content:"";position:absolute;inset:-50%;opacity:.09;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");animation:grain 1s steps(4) infinite}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(38% 50% at 100% 18%,rgba(250,204,21,.22),transparent 70%),radial-gradient(30% 40% at 0% 100%,rgba(234,120,30,.14),transparent 70%)}
+@keyframes grain{25%{transform:translate(-4%,3%)}50%{transform:translate(3%,-5%)}75%{transform:translate(-2%,-3%)}100%{transform:translate(4%,4%)}}
 .hero .wrap{position:relative;z-index:1;max-width:980px}
-.rec{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font:400 .76rem var(--mono);color:var(--muted);margin-bottom:26px}
+.vf{position:absolute;z-index:1;inset:28px max(20px,3vw) 30px;pointer-events:none;font:400 .7rem var(--mono);letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.vf>i{position:absolute;width:30px;height:30px;border:0 solid var(--y)}
+.vf>i:nth-child(1){top:0;left:0;border-width:2px 0 0 2px}
+.vf>i:nth-child(2){top:0;right:0;border-width:2px 2px 0 0}
+.vf>i:nth-child(3){bottom:0;left:0;border-width:0 0 2px 2px}
+.vf>i:nth-child(4){bottom:0;right:0;border-width:0 2px 2px 0}
+.vf>span{position:absolute;display:flex;align-items:center;gap:8px}
+.vf .tl1{top:14px;left:44px;color:var(--text)}
+.vf .tr1{top:14px;right:44px}
+.vf .bl1{bottom:14px;left:44px}
+.vf .br1{bottom:14px;right:44px;color:var(--hl)}
+.vf .dot{background:#EF4444}
 h1{font-size:clamp(1.9rem,5vw,3.9rem);line-height:1.1;margin:0 auto 24px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;text-wrap:balance}
-.bx{display:inline-block;border:3px solid var(--y);border-radius:14px;padding:0 .2em;line-height:1.12;box-shadow:0 0 24px rgba(250,204,21,.2)}
-.hl{color:var(--hl);text-shadow:var(--glow)}
+.it{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;letter-spacing:0;font-size:1.12em;line-height:.9}
+.hl{color:var(--hl)}
 .hero p{color:var(--muted);margin:0 auto 30px;max-width:56ch;font-size:1.05rem}
 .cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 .tags{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:32px 0 0;padding:0;list-style:none}
 .tags li{border:1px solid var(--line);border-radius:999px;padding:7px 14px;font:400 .78rem var(--mono);color:var(--muted)}
-.ticker{overflow:hidden;border-block:1px solid var(--hl);color:var(--hl);padding:12px 0;font:700 .82rem var(--mono);letter-spacing:.18em}
+.ticker{position:relative;overflow:hidden;background:#141414;color:var(--text);padding:22px 0;font:800 1.05rem "Inter",system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;transform:rotate(-1.2deg);margin-inline:-12px}
+.ticker::before,.ticker::after{content:"";position:absolute;left:0;right:0;height:8px;background:repeating-linear-gradient(90deg,transparent 0 10px,var(--bg) 10px 22px);border-radius:2px}
+.ticker::before{top:6px}.ticker::after{bottom:6px}
 .track{display:flex;width:max-content;animation:slide 36s linear infinite}
-.track span{white-space:pre}
+.track span{display:flex;align-items:center;white-space:nowrap}
+.track b{font-weight:800}
+.track em{font:italic 400 1.4rem var(--serif);text-transform:none;letter-spacing:0;color:var(--hl)}
+.track i{display:inline-block;width:7px;height:7px;margin:0 22px;border-radius:50%;background:var(--y)}
 @keyframes slide{to{transform:translateX(-50%)}}
 section{padding:44px 0}
 section.wrap{padding-top:44px;padding-bottom:44px}
-.ticker{margin-bottom:44px}
+.ticker{margin-top:8px;margin-bottom:52px}
+main{overflow-x:clip}
 .eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 14px;font:400 .74rem var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.eyebrow::before{content:"";width:28px;height:2px;background:var(--y)}
+.eyebrow .sc{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:6px;background:var(--y);color:var(--ink);font-weight:700;letter-spacing:.12em;white-space:nowrap}
+.eyebrow .sc::before{content:"";width:10px;height:8px;background:repeating-linear-gradient(115deg,var(--ink) 0 2px,transparent 2px 4px)}
 h2{font-size:clamp(1.8rem,4.4vw,3rem);line-height:1.1;margin:0 0 28px;font-weight:800;letter-spacing:-.02em;text-wrap:balance}
-.y{color:var(--hl)}
+.y{color:var(--hl);font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.12em;letter-spacing:0}
 .flow{--w:min(240px,56vw);--ar:9/16;position:relative;height:calc(var(--w)*1.7778 + 64px);perspective:1100px;overflow:hidden;touch-action:pan-y}
 .flow.h{--w:min(540px,76vw);--ar:16/9;height:calc(var(--w)*.5625 + 64px)}
 .sl{position:absolute;top:32px;left:50%;width:var(--w);margin-left:calc(var(--w)/-2);aspect-ratio:var(--ar);border-radius:18px;overflow:hidden;background:linear-gradient(160deg,var(--frame2),var(--frame));color:#fff;text-decoration:none;border:1px solid transparent;filter:blur(2px) saturate(.5);transition:transform .75s cubic-bezier(.22,.61,.36,1),opacity .55s ease,filter .55s ease,box-shadow .55s ease,border-color .55s ease;will-change:transform,opacity;backface-visibility:hidden}
@@ -103,13 +124,13 @@ h2{font-size:clamp(1.8rem,4.4vw,3rem);line-height:1.1;margin:0 0 28px;font-weigh
 .about p{font-size:1.15rem;max-width:64ch;margin:0}
 .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .steps3 p{margin:0}
-.num{display:block;margin-bottom:12px;font:700 2rem var(--mono);color:var(--hl)}
+.num{display:block;margin-bottom:10px;font:italic 400 2.6rem/1 var(--serif);color:var(--hl)}
+.num small{font:700 .7rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-right:8px;vertical-align:middle}
 .contact{text-align:center}
 .contact .wrap{width:min(1040px,calc(100% - 48px));max-width:none;padding:56px 24px;border:1px solid var(--hl);border-radius:28px}
 .contact .eyebrow{justify-content:center}
 .contact h2{text-transform:uppercase;font-size:clamp(1.7rem,4.6vw,3rem);max-width:18ch;margin:0 auto 24px;font-weight:900}
 footer{padding:24px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;text-align:center}
-.rec{margin-bottom:32px}
 h1{font-size:clamp(1.8rem,4.6vw,3.5rem);margin-bottom:32px}
 .hero{padding-bottom:120px}
 .hero p{margin-bottom:36px}
@@ -148,18 +169,16 @@ body.lb-on{overflow:hidden}
 .b-ig{box-shadow:0 10px 32px rgba(220,39,67,.4)}
 .b-mail{box-shadow:0 10px 32px rgba(217,48,37,.4)}
 .cta .btn{transition:transform .18s ease-out,filter .2s,box-shadow .2s,border-color .2s,color .2s;will-change:transform}
-.tl{position:absolute;z-index:1;left:max(24px,3vw);right:max(24px,3vw);bottom:22px;font:400 .7rem var(--mono);color:var(--tc)}
-.tl .row{display:flex;justify-content:space-between;margin-bottom:10px;letter-spacing:.06em}
-.trk{position:relative;height:1px;background:var(--line)}
-.trk i{position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--y);box-shadow:0 0 10px rgba(250,204,21,.6)}
 
 @media (max-width:820px){.two,.steps3{grid-template-columns:1fr}nav a.link{display:none}}
+@media (max-width:560px){.vf{inset:18px 14px 22px}.vf .tl1,.vf .bl1{left:40px}.vf .tr1,.vf .br1{right:40px}.vf .bl1{display:none}.logo{font-size:.9rem;gap:8px}.logo svg{width:24px;height:24px}.logo small{font-size:1.05rem}nav .btn{padding:8px 14px}}
+@media (max-width:380px){nav .btn .dot{display:none}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.dot,.track,.hero::before{animation:none}.play,.sl,.sl.has-v .play{transition:none}.lb.open,.lb video,.lb iframe{animation:none}.track{flex-wrap:wrap;width:auto}}
 </style>
 </head>
 <body>
 <header><div class="wrap">
-  <a class="logo" href="#topo">Wesley Costa<small>.films</small></a>
+  <a class="logo" href="#topo" aria-label="Wesley Costa Films, voltar ao topo"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="11" y="15" width="8" height="5" rx="1.5" fill="#FACC15"/><path d="M23 14h14.5l4 7H19z" fill="#FACC15"/><rect x="7" y="20" width="50" height="33" rx="7" fill="#FACC15"/><circle cx="32" cy="36.5" r="13" fill="#0A0A0A"/><circle cx="32" cy="36.5" r="9" fill="none" stroke="#FACC15" stroke-width="2.5"/><circle cx="32" cy="36.5" r="4" fill="#FACC15"/><circle cx="50.5" cy="26.5" r="2.4" fill="#0A0A0A"/></svg>Wesley Costa<small>films</small></a>
   <nav>
     <a class="link" href="#trabalhos">Trabalhos</a>
     <a class="link" href="#servicos">Serviços</a>
@@ -169,28 +188,31 @@ body.lb-on{overflow:hidden}
 </div></header>
 
 <main id="topo">
-  <div class="hero"><div class="wrap">
-    <div class="rec"><span class="dot"></span>REC · disponível para novos projetos</div>
-    <h1>Transformo <span class="bx">ideias</span> em conteúdos que <span class="hl">convertem.</span></h1>
+  <div class="hero">
+  <div class="vf" aria-hidden="true">
+    <i></i><i></i><i></i><i></i>
+    <span class="tl1"><span class="dot"></span>4K · 24p</span>
+    <span class="tr1" id="t0">00:00:00:00</span>
+    <span class="bl1">f/2.8 · ISO 400</span>
+    <span class="br1">Disponível para novos projetos</span>
+  </div>
+  <div class="wrap">
+    <h1>Transformo <span class="it hl">ideias</span> em conteúdos que <span class="it hl">convertem.</span></h1>
     <p><strong>Criação de conteúdo</strong> e <strong>edição</strong> para <strong>criadores e marcas</strong>. Posso ir desde a <strong>captação</strong> ou da <strong>edição do material bruto</strong> ao <strong>vídeo pronto</strong> para publicar.</p>
     <div class="cta">
       <a class="btn primary" id="heroWa" href="#contato">Falar no WhatsApp</a>
       <a class="btn" href="#trabalhos">Ver trabalhos</a>
     </div>
     <ul class="tags"><li>Captação</li><li>Edição</li><li>Joinville, SC</li></ul>
-  </div>
-  <div class="tl" aria-hidden="true">
-    <div class="row"><span id="t0">00:00:00:00</span><span>V1 · A1 · A2</span><span>00:00:59:23</span></div>
-    <div class="trk"><i id="prog"></i></div>
   </div></div>
 
   <div class="ticker" aria-hidden="true"><div class="track">
-    <span>FILMAGEM // EDIÇÃO // CORTE E RITMO // LEGENDA // TRILHA // ENTREGA PRONTA PARA POSTAR // </span>
-    <span>FILMAGEM // EDIÇÃO // CORTE E RITMO // LEGENDA // TRILHA // ENTREGA PRONTA PARA POSTAR // </span>
+    <span><b>Filmagem</b><i></i><em>edição</em><i></i><b>Corte e ritmo</b><i></i><em>legenda</em><i></i><b>Trilha</b><i></i><em>pronto para postar</em><i></i></span>
+    <span><b>Filmagem</b><i></i><em>edição</em><i></i><b>Corte e ritmo</b><i></i><em>legenda</em><i></i><b>Trilha</b><i></i><em>pronto para postar</em><i></i></span>
   </div></div>
 
   <section id="trabalhos" class="wrap">
-    <p class="eyebrow">Portfólio // Reels e vídeos verticais</p>
+    <p class="eyebrow"><span class="sc">Cena 01</span>Reels e vídeos verticais</p>
     <h2>Reels feitos para <span class="y">prender</span> a atenção.</h2>
     <div class="flow" id="f1" role="region" aria-roledescription="carrossel" aria-label="Reels e vídeos verticais"></div>
     <div class="dots" id="d1"></div>
@@ -198,7 +220,7 @@ body.lb-on{overflow:hidden}
   </section>
 
   <section id="longos" class="wrap">
-    <p class="eyebrow">Portfólio // Vídeos longos</p>
+    <p class="eyebrow"><span class="sc">Cena 02</span>Vídeos longos</p>
     <h2>Vídeos longos com <span class="y">ritmo</span> do início ao fim.</h2>
     <div class="flow h" id="f2" role="region" aria-roledescription="carrossel" aria-label="Vídeos longos"></div>
     <div class="dots" id="d2"></div>
@@ -206,7 +228,7 @@ body.lb-on{overflow:hidden}
   </section>
 
   <section id="servicos" class="wrap">
-    <p class="eyebrow">Serviços // O que eu faço</p>
+    <p class="eyebrow"><span class="sc">Cena 03</span>O que eu faço</p>
     <h2>Da <span class="y">captação</span> à edição final.</h2>
     <div class="two">
       <div class="pane">
@@ -225,25 +247,25 @@ body.lb-on{overflow:hidden}
   </section>
 
   <section id="sobre" class="wrap">
-    <p class="eyebrow">Sobre // Quem vai cuidar do seu vídeo</p>
+    <p class="eyebrow"><span class="sc">Cena 04</span>Sobre mim</p>
     <h2>Quem vai <span class="y">cuidar</span> do seu vídeo.</h2>
     <div class="pane about"><p>Me chamo <strong>Wesley</strong>, sou <strong>VideoMaker</strong> em Joinville, SC. Trabalho com <strong>captação e edição</strong> e posso cuidar de tudo: da <strong>ideia ao vídeo final</strong>. Meu foco é deixar o vídeo <strong>claro, bonito</strong> e com a <strong>cara do seu negócio</strong>.</p></div>
   </section>
 
   <section id="processo" class="wrap">
-    <p class="eyebrow">Processo // Como funciona</p>
+    <p class="eyebrow"><span class="sc">Cena 05</span>Como funciona</p>
     <h2>Do primeiro contato à <span class="y">entrega</span>.</h2>
     <div class="steps3">
-      <div class="pane"><span class="num">01</span><p>Você <strong>me chama</strong> e conta o que precisa.</p></div>
-      <div class="pane"><span class="num">02</span><p>Combinamos o <strong>roteiro</strong>, o <strong>prazo</strong> e o <strong>valor</strong>.</p></div>
-      <div class="pane"><span class="num">03</span><p>Eu <strong>filmo</strong>, <strong>edito</strong> e <strong>entrego</strong> o vídeo pronto.</p></div>
+      <div class="pane"><span class="num"><small>Take</small>01</span><p>Você <strong>me chama</strong> e conta o que precisa.</p></div>
+      <div class="pane"><span class="num"><small>Take</small>02</span><p>Combinamos o <strong>roteiro</strong>, o <strong>prazo</strong> e o <strong>valor</strong>.</p></div>
+      <div class="pane"><span class="num"><small>Take</small>03</span><p>Eu <strong>filmo</strong>, <strong>edito</strong> e <strong>entrego</strong> o vídeo pronto.</p></div>
     </div>
   </section>
 
   <section id="contato" class="contact">
     <div class="wrap">
-      <p class="eyebrow">Contato // Vamos conversar</p>
-      <h2>Vamos falar sobre seu próximo <span class="hl">projeto.</span></h2>
+      <p class="eyebrow"><span class="sc">Cena final</span>Vamos conversar</p>
+      <h2>Vamos falar sobre seu próximo <span class="it hl">projeto.</span></h2>
       <p class="sub">Me chama no <strong>WhatsApp</strong> ou no <strong>Instagram</strong> e conta o que você precisa.</p>
       <div class="cta">
         <a class="btn brand b-wa" id="wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.4-4.2A8.5 8.5 0 1 1 20.5 12Z"/><path d="M9.2 8.6c0 3.4 2.8 6.2 6.2 6.2l1.1-1.2-1.9-1.1-.9.8c-.9-.4-1.8-1.3-2.2-2.2l.8-.9-1.1-1.9-1 .3Z" fill="currentColor"/></svg>Falar no WhatsApp</a>
@@ -431,12 +453,12 @@ var io = new IntersectionObserver(function (es) {
 }, { rootMargin: "-45% 0px -50% 0px" });
 document.querySelectorAll("section").forEach(function (s) { io.observe(s); });
 
-var prog = $("prog"), t0 = $("t0"), TOTAL = 59 * 24 + 23, still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* Contador de gravação do visor: tempo desde que a página abriu, a 24 quadros por segundo */
+var t0 = $("t0"), still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 function pad(x) { return (x < 10 ? "0" : "") + x; }
 function tick(now) {
-  var p = still ? 0.35 : (now % 14000) / 14000, f = Math.floor(p * TOTAL);
-  prog.style.width = p * 100 + "%";
-  t0.textContent = "00:00:" + pad(Math.floor(f / 24)) + ":" + pad(f % 24);
+  var f = Math.floor(now / 1000 * 24), s = Math.floor(f / 24);
+  t0.textContent = pad(Math.floor(s / 3600)) + ":" + pad(Math.floor(s / 60) % 60) + ":" + pad(s % 60) + ":" + pad(f % 24);
   if (!still) requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
