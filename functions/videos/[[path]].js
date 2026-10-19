@@ -13,6 +13,7 @@ export async function onRequest({ request, env }) {
   headers.set("Cache-Control", "public, max-age=86400");
 
   const range = request.headers.get("Range");
+  headers.set("X-Debug", `range=${range || "-"}; size=${size}; cl=${asset.headers.get("Content-Length") || "-"}`);
   const m = range && /^bytes=(\d*)-(\d*)$/.exec(range.trim());
   if (!m || !size || (m[1] === "" && m[2] === "")) {
     return new Response(request.method === "HEAD" ? null : asset.body, { status: 200, headers });
